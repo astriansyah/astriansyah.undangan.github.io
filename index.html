@@ -113,11 +113,9 @@
 </head>
 <body class="font-sans antialiased selection:bg-gold-500 selection:text-navy-900">
 
-    <!-- Audio Element (Hidden) -->
+    <!-- Elemen Audio (Menggunakan file lokal mp3) -->
     <audio id="bg-music" loop preload="auto">
-        <!-- Contoh menggunakan direct link yang valid. 
-             SANGAT DISARANKAN: Download musik dari GDrive Anda, simpan 1 folder dengan file ini, lalu ubah src menjadi "lagu.mp3" -->
-        <source src="https://www.youtube.com/watch?v=Fp8msa5uYsc&list=RDFp8msa5uYsc&start_radio=1"
+        <source src="lagu-ghost.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung elemen audio.
     </audio>
 
@@ -133,7 +131,7 @@
             <p class="text-white font-medium text-lg md:text-xl my-2">Tamu Undangan</p>
             <p class="text-gray-400 font-light text-xs md:text-sm mb-8">*Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
             
-            <button onclick="openInvitation()" class="mt-8 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-navy-950 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(212,175,55,0.3)] flex items-center justify-center gap-2 mx-auto">
+            <button id="open-btn" class="mt-8 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-navy-950 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(212,175,55,0.3)] flex items-center justify-center gap-2 mx-auto">
                 <i class="fa-solid fa-envelope-open-text"></i> Buka Undangan
             </button>
         </div>
@@ -270,7 +268,6 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 reveal">
                     <!-- Foto 1 -->
                     <div class="group relative aspect-square overflow-hidden rounded-xl bg-navy-800">
-                        <!-- URL GDrive diubah menggunakan lh3.googleusercontent.com agar bisa tampil langsung. Jika limit/akses ditutup, akan lari ke gambar placeholder dari Unsplash. -->
                         <img src="https://lh3.googleusercontent.com/d/1O6j_A8kw6lmPEd53ELqvX6ndhKpkLMc-" 
                              onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&auto=format&fit=crop';" 
                              alt="Galeri 1" 
@@ -391,7 +388,20 @@
 
         <!-- Footer -->
         <footer class="bg-navy-950 py-10 border-t border-navy-800 text-center">
-        <button id="music-control" onclick="toggleMusic()" class="fixed bottom-6 right-6 w-12 h-12 bg-navy-800 border border-gold-500 rounded-full flex items-center justify-center text-gold-500 shadow-[0_0_15px_rgba(212,175,55,0.4)] z-40 transition-all duration-300 transform hover:scale-110 opacity-0 invisible">
+            <div class="max-w-3xl mx-auto px-6">
+                <h3 class="font-serif text-2xl text-white mb-2">Ahmad Syarifuddin Triansyah</h3>
+                <p class="text-gold-500 font-light italic mb-6">Final Moment Spemdalas 23</p>
+                <div class="flex justify-center gap-4 text-gray-500 mb-6">
+                    <span class="w-10 h-px bg-navy-700 mt-3"></span>
+                    <i class="fa-solid fa-graduation-cap text-navy-700"></i>
+                    <span class="w-10 h-px bg-navy-700 mt-3"></span>
+                </div>
+                <p class="text-gray-600 text-sm">© 2026 Crafted with ❤️ for Spemdalas Graduation.</p>
+            </div>
+        </footer>
+
+        <!-- Tombol Kontrol Musik -->
+        <button id="music-control" class="fixed bottom-6 right-6 w-12 h-12 bg-navy-800 border border-gold-500 rounded-full flex items-center justify-center text-gold-500 shadow-[0_0_15px_rgba(212,175,55,0.4)] z-40 transition-all duration-300 transform hover:scale-110 opacity-0 invisible">
             <i id="music-icon" class="fa-solid fa-music animate-pulse"></i>
         </button>
 
@@ -399,16 +409,18 @@
 
     <!-- Scripts -->
     <script>
-        // 1. Logika Cover & Audio
+        // 1. Logika Audio & Cover
         const bgMusic = document.getElementById('bg-music');
         const musicIcon = document.getElementById('music-icon');
         const musicControl = document.getElementById('music-control');
         const coverScreen = document.getElementById('cover-screen');
+        const openBtn = document.getElementById('open-btn');
         let isPlaying = false;
 
-        // Pastikan volume musik tidak terlalu keras (opsional, 0.0 sampai 1.0)
-        bgMusic.volume = 0.6; 
+        // Set volume awal
+        bgMusic.volume = 0.5;
 
+        // Fungsi utama membuka undangan
         function openInvitation() {
             // Sembunyikan cover
             coverScreen.classList.add('hide-cover');
@@ -421,43 +433,46 @@
                 musicControl.classList.remove('opacity-0', 'invisible');
             }, 1000);
 
-            // Putar musik (hanya bisa jalan jika ada interaksi klik dari user)
-            playMusic();
+            // Langsung coba play musik segera setelah klik
+            tryPlayMusic();
         }
 
-        function playMusic() {
-            // Gunakan promise untuk menangani error jika browser memblokir autoplay
+        // Listener untuk tombol Buka Undangan
+        openBtn.addEventListener('click', openInvitation);
+
+        // Listener untuk tombol kontrol musik di pojok
+        musicControl.addEventListener('click', function() {
+            if (isPlaying) {
+                bgMusic.pause();
+                isPlaying = false;
+                musicIcon.classList.replace('fa-music', 'fa-play');
+                musicIcon.classList.remove('animate-pulse');
+            } else {
+                tryPlayMusic();
+            }
+        });
+
+        // Fungsi untuk menangani pemutaran dengan Promise
+        function tryPlayMusic() {
             const playPromise = bgMusic.play();
             
             if (playPromise !== undefined) {
-                playPromise.then(_ => {
+                playPromise.then(() => {
+                    // Audio berhasil diputar
                     isPlaying = true;
-                    musicIcon.classList.remove('fa-play');
-                    musicIcon.classList.add('fa-music', 'animate-pulse');
-                })
-                .catch(error => {
-                    console.log("Autoplay dicegah oleh browser. User harus menekan tombol play secara manual.", error);
-                    // Tampilkan ikon play agar user bisa memutar manual
-                    musicIcon.classList.remove('fa-music', 'animate-pulse');
-                    musicIcon.classList.add('fa-play');
+                    musicIcon.classList.replace('fa-play', 'fa-music');
+                    musicIcon.classList.add('animate-pulse');
+                }).catch(error => {
+                    // Autoplay terblokir
+                    console.log("Audio play failed: ", error);
                     isPlaying = false;
+                    musicIcon.classList.replace('fa-music', 'fa-play');
+                    musicIcon.classList.remove('animate-pulse');
                 });
             }
         }
 
-        function toggleMusic() {
-            if (isPlaying) {
-                bgMusic.pause();
-                musicIcon.classList.remove('fa-music', 'animate-pulse');
-                musicIcon.classList.add('fa-play');
-                isPlaying = false;
-            } else {
-                playMusic();
-            }
-        }
-
         // 2. Countdown Timer
-        // Target: Sabtu, 20 Juni 2026, 07:00:00
         const countDownDate = new Date("June 20, 2026 07:00:00").getTime();
 
         const x = setInterval(function() {
@@ -499,14 +514,13 @@
         }
         
         window.addEventListener("scroll", reveal);
-        // Trigger sekali saat load
         setTimeout(reveal, 500); 
 
         // 4. Handle Form RSVP
         const rsvpForm = document.getElementById('rsvp-form');
         const wishesContainer = document.getElementById('wishes-container');
         const wishCountSpan = document.getElementById('wish-count');
-        let wishCount = 2; // Sesuai dengan dummy awal
+        let wishCount = 2;
 
         rsvpForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -515,7 +529,6 @@
             const attendance = document.getElementById('guest-attendance').value;
             const message = document.getElementById('guest-message').value;
 
-            // Tentukan warna badge berdasarkan kehadiran
             let badgeClass = '';
             if(attendance === 'Hadir') {
                 badgeClass = 'bg-green-900/50 text-green-400 border-green-800';
@@ -525,7 +538,6 @@
                 badgeClass = 'bg-yellow-900/50 text-yellow-400 border-yellow-800';
             }
 
-            // Buat elemen HTML baru
             const newWish = document.createElement('div');
             newWish.className = 'bg-navy-800 p-4 rounded-lg border border-navy-700 opacity-0 transition-opacity duration-500';
             newWish.innerHTML = `
@@ -536,20 +548,16 @@
                 <p class="text-gray-300 text-sm leading-relaxed">${escapeHTML(message).replace(/\n/g, '<br>')}</p>
             `;
 
-            // Tambahkan di urutan paling atas
             wishesContainer.prepend(newWish);
             
-            // Fade in animasi
             setTimeout(() => {
                 newWish.classList.remove('opacity-0');
             }, 50);
 
-            // Update counter & Reset form
             wishCount++;
             wishCountSpan.textContent = wishCount;
             rsvpForm.reset();
             
-            // Notifikasi sukses ringan (Opsional)
             const btn = rsvpForm.querySelector('button');
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-check"></i> Terkirim';
@@ -560,7 +568,6 @@
             }, 3000);
         });
 
-        // Simple HTML Escaper untuk keamanan dari XSS jika user iseng
         function escapeHTML(str) {
             return str.replace(/[&<>'"]/g, 
                 tag => ({
