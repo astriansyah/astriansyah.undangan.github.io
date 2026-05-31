@@ -1,1 +1,575 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Final Moment Spemdalas 23 - Ahmad Syarifuddin Triansyah</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi Tailwind Kustom -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            700: '#1a2f4c',
+                            800: '#11223b',
+                            900: '#0a1526',
+                            950: '#050a14',
+                        },
+                        gold: {
+                            400: '#e5c07b',
+                            500: '#d4af37',
+                            600: '#b8962e',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base styles */
+        body {
+            background-color: #0a1526;
+            color: #f3f4f6;
+            overflow: hidden; /* Sembunyikan scroll saat cover aktif */
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Parallax Background */
+        .parallax-bg {
+            background-image: linear-gradient(rgba(10, 21, 38, 0.8), rgba(10, 21, 38, 0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2000&auto=format&fit=crop');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Animasi Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Transisi Cover Screen */
+        #cover-screen {
+            transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+        }
+        
+        .hide-cover {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a1526;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-gold-500 selection:text-navy-900">
+
+    <!-- Audio Element (Hidden) -->
+    <audio id="bg-music" loop>
+        <source src="https://drive.google.com/uc?export=download&id=14xdWM9zDLK1PsgiZBd1IsWXFbEfN3nJy" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <!-- Cover Screen (Tampilan Awal) -->
+    <div id="cover-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-navy-950 text-center px-4 parallax-bg">
+        <div class="space-y-6 max-w-lg">
+            <h3 class="text-gold-400 font-serif italic text-lg md:text-xl tracking-wider">Undangan Final Moment</h3>
+            <h1 class="text-4xl md:text-6xl font-serif text-white font-bold leading-tight">Spemdalas 23</h1>
+            
+            <div class="w-24 h-px bg-gold-500 mx-auto my-6"></div>
+            
+            <p class="text-gray-300 font-light text-sm md:text-base">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+            <p class="text-white font-medium text-lg md:text-xl my-2">Tamu Undangan</p>
+            <p class="text-gray-400 font-light text-xs md:text-sm mb-8">*Mohon maaf apabila ada kesalahan penulisan nama/gelar</p>
+            
+            <button onclick="openInvitation()" class="mt-8 px-8 py-3 bg-gold-500 hover:bg-gold-600 text-navy-950 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(212,175,55,0.3)] flex items-center justify-center gap-2 mx-auto">
+                <i class="fa-solid fa-envelope-open-text"></i> Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- Konten Utama Website -->
+    <main class="relative">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex items-center justify-center text-center px-4 py-20 parallax-bg relative">
+            <!-- Overlay tipis -->
+            <div class="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-900/60 to-navy-950"></div>
+            
+            <div class="relative z-10 space-y-8 reveal max-w-3xl mx-auto">
+                <p class="text-gold-400 font-serif italic text-xl">The Final Moment</p>
+                <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-2">Spemdalas 23</h1>
+                <p class="text-gray-300 tracking-widest uppercase text-sm md:text-base mb-8">Graduation & Farewell</p>
+                
+                <div class="py-8">
+                    <p class="text-gray-400 mb-2">Merayakan kelulusan dari,</p>
+                    <h2 class="text-3xl md:text-5xl font-serif text-gold-500 mb-4 animate-float">Ahmad Syarifuddin Triansyah</h2>
+                    <p class="text-gray-300 font-light italic">Putra dari Hamba Allah</p>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <i class="fa-solid fa-chevron-down text-gold-500 text-2xl opacity-70"></i>
+            </div>
+        </section>
+
+        <!-- Informasi Acara & Countdown -->
+        <section class="py-24 bg-navy-950 relative overflow-hidden">
+            <!-- Dekoratif Lingkaran -->
+            <div class="absolute top-0 left-0 w-64 h-64 bg-gold-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 translate-x-1/2 translate-y-1/2"></div>
+            
+            <div class="max-w-5xl mx-auto px-6 relative z-10">
+                <div class="text-center reveal mb-16">
+                    <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">Waktu & Tempat</h2>
+                    <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+                </div>
+
+                <!-- Event Card -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                    <!-- Detail Acara -->
+                    <div class="bg-navy-900 border border-navy-700 rounded-2xl p-8 shadow-2xl relative overflow-hidden group hover:border-gold-500/50 transition-colors duration-500">
+                        <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                            <i class="fa-solid fa-graduation-cap text-9xl text-gold-500"></i>
+                        </div>
+                        <div class="relative z-10 space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-navy-800 flex items-center justify-center text-gold-500 shrink-0">
+                                    <i class="fa-regular fa-calendar text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-serif text-gold-400 mb-1">Tanggal</h3>
+                                    <p class="text-white font-medium text-lg">Sabtu, 20 Juni 2026</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-navy-800 flex items-center justify-center text-gold-500 shrink-0">
+                                    <i class="fa-regular fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-serif text-gold-400 mb-1">Waktu</h3>
+                                    <p class="text-white font-medium text-lg">07:00 WIB - Selesai</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-full bg-navy-800 flex items-center justify-center text-gold-500 shrink-0">
+                                    <i class="fa-solid fa-location-dot text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-serif text-gold-400 mb-1">Lokasi</h3>
+                                    <p class="text-white font-medium">ASTON Gresik Hotel & Conference Center</p>
+                                    <p class="text-gray-400 text-sm mt-1 leading-relaxed">Jl. GKB Bundaran, Jl. Kalimantan No.39, Wonorejo, Yosowilangun, Kec. Manyar, Kabupaten Gresik, Jawa Timur 61151</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Countdown Timer -->
+                    <div class="flex flex-col justify-center items-center bg-navy-900 border border-navy-700 rounded-2xl p-8 shadow-2xl">
+                        <h3 class="text-xl font-serif text-white mb-8 text-center">Menuju Hari Bahagia</h3>
+                        <div class="grid grid-cols-4 gap-2 md:gap-4 w-full text-center">
+                            <div class="bg-navy-800 p-3 rounded-xl border border-navy-700">
+                                <span id="days" class="block text-2xl md:text-4xl font-serif text-gold-500 font-bold mb-1">00</span>
+                                <span class="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Hari</span>
+                            </div>
+                            <div class="bg-navy-800 p-3 rounded-xl border border-navy-700">
+                                <span id="hours" class="block text-2xl md:text-4xl font-serif text-gold-500 font-bold mb-1">00</span>
+                                <span class="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Jam</span>
+                            </div>
+                            <div class="bg-navy-800 p-3 rounded-xl border border-navy-700">
+                                <span id="minutes" class="block text-2xl md:text-4xl font-serif text-gold-500 font-bold mb-1">00</span>
+                                <span class="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Menit</span>
+                            </div>
+                            <div class="bg-navy-800 p-3 rounded-xl border border-navy-700">
+                                <span id="seconds" class="block text-2xl md:text-4xl font-serif text-gold-500 font-bold mb-1">00</span>
+                                <span class="text-xs md:text-sm text-gray-400 uppercase tracking-wider">Detik</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embed -->
+                <div class="mt-12 rounded-2xl overflow-hidden shadow-2xl reveal border border-navy-700 h-[400px]">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.4116231920875!2d112.6074121!3d-7.1593361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e77ff9618451833%3A0xc3f6a27e02e071e6!2sASTON%20Gresik%20Hotel%20%26%20Conference%20Center!5e0!3m2!1sen!2sid!4v1689000000000!5m2!1sen!2sid" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeri Foto -->
+        <section class="py-24 bg-navy-900 border-t border-navy-800">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center reveal mb-16">
+                    <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">Galeri Kenangan</h2>
+                    <div class="w-16 h-1 bg-gold-500 mx-auto"></div>
+                    <p class="text-gray-400 mt-6 max-w-2xl mx-auto">Jejak langkah dan momen berharga selama perjalanan menimba ilmu di Spemdalas.</p>
+                </div>
+
+                <!-- Grid Galeri -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 reveal">
+                    <!-- Foto 1 -->
+                    <div class="group relative aspect-square overflow-hidden rounded-xl bg-navy-800">
+                        <!-- URL GDrive diubah menggunakan lh3.googleusercontent.com agar bisa tampil langsung. Jika limit/akses ditutup, akan lari ke gambar placeholder dari Unsplash. -->
+                        <img src="https://lh3.googleusercontent.com/d/1O6j_A8kw6lmPEd53ELqvX6ndhKpkLMc-" 
+                             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&auto=format&fit=crop';" 
+                             alt="Galeri 1" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-navy-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i class="fa-solid fa-magnifying-glass text-gold-500 text-3xl"></i>
+                        </div>
+                    </div>
+                    <!-- Foto 2 -->
+                    <div class="group relative aspect-square overflow-hidden rounded-xl bg-navy-800">
+                        <img src="https://lh3.googleusercontent.com/d/1yfIRmWA7GxkYFMEEg0zGqu0V-yaFOfzR" 
+                             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1554252116-24dc179c3d4b?w=600&auto=format&fit=crop';" 
+                             alt="Galeri 2" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-navy-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i class="fa-solid fa-magnifying-glass text-gold-500 text-3xl"></i>
+                        </div>
+                    </div>
+                    <!-- Foto 3 -->
+                    <div class="group relative aspect-square overflow-hidden rounded-xl bg-navy-800">
+                        <img src="https://lh3.googleusercontent.com/d/1XKSg21fxe-BKtN-tWSK9CnpPA4Y7TgFQ" 
+                             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511629091441-ee46146481b6?w=600&auto=format&fit=crop';" 
+                             alt="Galeri 3" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-navy-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i class="fa-solid fa-magnifying-glass text-gold-500 text-3xl"></i>
+                        </div>
+                    </div>
+                    <!-- Foto 4 -->
+                    <div class="group relative aspect-square overflow-hidden rounded-xl bg-navy-800">
+                        <img src="https://lh3.googleusercontent.com/d/1Tobe3DYw_FeiXFub39rpglJeQpvPqgtw" 
+                             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1627556592933-ffe99c1c9cd8?w=600&auto=format&fit=crop';" 
+                             alt="Galeri 4" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-navy-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i class="fa-solid fa-magnifying-glass text-gold-500 text-3xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP & Wishes Section -->
+        <section class="py-24 bg-navy-950 parallax-bg relative">
+            <div class="absolute inset-0 bg-navy-950/90"></div>
+            
+            <div class="max-w-4xl mx-auto px-6 relative z-10">
+                <div class="text-center reveal mb-12">
+                    <h2 class="text-3xl md:text-4xl font-serif text-white mb-4">RSVP & Ucapan</h2>
+                    <div class="w-16 h-1 bg-gold-500 mx-auto mb-8"></div>
+                    <p class="text-gray-300 italic font-serif text-lg md:text-xl leading-relaxed">
+                        "Dengan penuh rasa hormat, kami mengundang Bapak/Ibu/Saudara untuk menuliskan kesan, pesan, doa, maupun harapan terbaik sebagai kenang-kenangan yang berharga bagi perjalanan Final Moment Spemdalas ke-23."
+                    </p>
+                    <p class="text-gray-400 mt-4 text-sm">
+                        Setiap untaian kata yang Anda berikan akan menjadi bagian dari cerita, inspirasi, dan semangat bagi seluruh keluarga besar Spemdalas. Atas perhatian dan partisipasinya, kami sampaikan terima kasih.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                    <!-- Form Form RSVP -->
+                    <div class="bg-navy-900 border border-navy-700 rounded-2xl p-6 md:p-8 shadow-xl h-fit">
+                        <form id="rsvp-form" class="space-y-4">
+                            <div>
+                                <label class="block text-gray-300 text-sm font-medium mb-2">Nama Lengkap</label>
+                                <input type="text" id="guest-name" required class="w-full bg-navy-950 border border-navy-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors" placeholder="Masukkan nama Anda">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-300 text-sm font-medium mb-2">Kehadiran</label>
+                                <select id="guest-attendance" class="w-full bg-navy-950 border border-navy-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak Hadir">Tidak Hadir</option>
+                                    <option value="Masih Ragu">Masih Ragu</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-300 text-sm font-medium mb-2">Ucapan & Doa</label>
+                                <textarea id="guest-message" required rows="4" class="w-full bg-navy-950 border border-navy-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors" placeholder="Tuliskan ucapan, doa, dan harapan terbaik Anda..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-navy-950 font-bold py-3 px-4 rounded-lg transition-colors flex justify-center items-center gap-2">
+                                <i class="fa-regular fa-paper-plane"></i> Kirim Ucapan
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Wishes Display -->
+                    <div class="bg-navy-900 border border-navy-700 rounded-2xl p-6 md:p-8 shadow-xl flex flex-col h-[500px]">
+                        <h3 class="text-xl font-serif text-white mb-4 border-b border-navy-700 pb-4">Ucapan Tamu (<span id="wish-count">2</span>)</h3>
+                        
+                        <!-- Scrollable Container -->
+                        <div id="wishes-container" class="flex-1 overflow-y-auto pr-2 space-y-4">
+                            
+                            <!-- Dummy Wish 1 -->
+                            <div class="bg-navy-800 p-4 rounded-lg border border-navy-700">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-medium text-gold-400">Kepala Sekolah Spemdalas</h4>
+                                    <span class="text-xs bg-green-900/50 text-green-400 px-2 py-1 rounded border border-green-800">Hadir</span>
+                                </div>
+                                <p class="text-gray-300 text-sm leading-relaxed">Selamat dan sukses untuk ananda Ahmad Syarifuddin Triansyah. Semoga ilmu yang didapat berkah dan berguna bagi masa depan. Teruslah mengejar cita-cita!</p>
+                            </div>
+                            
+                            <!-- Dummy Wish 2 -->
+                            <div class="bg-navy-800 p-4 rounded-lg border border-navy-700">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-medium text-gold-400">Keluarga Besar</h4>
+                                    <span class="text-xs bg-green-900/50 text-green-400 px-2 py-1 rounded border border-green-800">Hadir</span>
+                                </div>
+                                <p class="text-gray-300 text-sm leading-relaxed">Barakallah fii ilmi. Kami bangga padamu! Semoga langkah selanjutnya selalu dimudahkan Allah SWT.</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-navy-950 py-10 border-t border-navy-800 text-center">
+            <div class="max-w-3xl mx-auto px-6">
+                <h3 class="font-serif text-2xl text-white mb-2">Ahmad Syarifuddin Triansyah</h3>
+                <p class="text-gold-500 font-light italic mb-6">Final Moment Spemdalas 23</p>
+                <div class="flex justify-center gap-4 text-gray-500 mb-6">
+                    <span class="w-10 h-px bg-navy-700 mt-3"></span>
+                    <i class="fa-solid fa-graduation-cap text-navy-700"></i>
+                    <span class="w-10 h-px bg-navy-700 mt-3"></span>
+                </div>
+                <p class="text-gray-600 text-sm">© 2026 Crafted with ❤️ for Spemdalas Graduation.</p>
+            </div>
+        </footer>
+
+        <!-- Floating Music Control -->
+        <button id="music-control" onclick="toggleMusic()" class="fixed bottom-6 right-6 w-12 h-12 bg-navy-800 border border-gold-500 rounded-full flex items-center justify-center text-gold-500 shadow-lg z-40 transition-transform hover:scale-110 opacity-0 invisible">
+            <i id="music-icon" class="fa-solid fa-music animate-pulse"></i>
+        </button>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // 1. Logika Cover & Audio
+        const bgMusic = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        const musicControl = document.getElementById('music-control');
+        const coverScreen = document.getElementById('cover-screen');
+        let isPlaying = false;
+
+        function openInvitation() {
+            // Sembunyikan cover
+            coverScreen.classList.add('hide-cover');
+            
+            // Izinkan scroll
+            document.body.style.overflow = 'auto';
+            
+            // Tampilkan tombol musik
+            setTimeout(() => {
+                musicControl.classList.remove('opacity-0', 'invisible');
+            }, 1000);
+
+            // Putar musik (dibutuhkan interaksi user)
+            playMusic();
+        }
+
+        function playMusic() {
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-music', 'animate-pulse');
+            }).catch((error) => {
+                console.log("Audio autoplay dicegah browser:", error);
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicIcon.classList.remove('fa-music', 'animate-pulse');
+                musicIcon.classList.add('fa-play');
+                isPlaying = false;
+            } else {
+                playMusic();
+            }
+        }
+
+        // 2. Countdown Timer
+        // Target: Sabtu, 20 Juni 2026, 07:00:00
+        const countDownDate = new Date("June 20, 2026 07:00:00").getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("minutes").innerHTML = "00";
+                document.getElementById("seconds").innerHTML = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+        }, 1000);
+
+        // 3. Scroll Reveal Animation
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        
+        window.addEventListener("scroll", reveal);
+        // Trigger sekali saat load
+        setTimeout(reveal, 500); 
+
+        // 4. Handle Form RSVP
+        const rsvpForm = document.getElementById('rsvp-form');
+        const wishesContainer = document.getElementById('wishes-container');
+        const wishCountSpan = document.getElementById('wish-count');
+        let wishCount = 2; // Sesuai dengan dummy awal
+
+        rsvpForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('guest-name').value;
+            const attendance = document.getElementById('guest-attendance').value;
+            const message = document.getElementById('guest-message').value;
+
+            // Tentukan warna badge berdasarkan kehadiran
+            let badgeClass = '';
+            if(attendance === 'Hadir') {
+                badgeClass = 'bg-green-900/50 text-green-400 border-green-800';
+            } else if (attendance === 'Tidak Hadir') {
+                badgeClass = 'bg-red-900/50 text-red-400 border-red-800';
+            } else {
+                badgeClass = 'bg-yellow-900/50 text-yellow-400 border-yellow-800';
+            }
+
+            // Buat elemen HTML baru
+            const newWish = document.createElement('div');
+            newWish.className = 'bg-navy-800 p-4 rounded-lg border border-navy-700 opacity-0 transition-opacity duration-500';
+            newWish.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <h4 class="font-medium text-gold-400">${escapeHTML(name)}</h4>
+                    <span class="text-xs px-2 py-1 rounded border ${badgeClass}">${escapeHTML(attendance)}</span>
+                </div>
+                <p class="text-gray-300 text-sm leading-relaxed">${escapeHTML(message).replace(/\n/g, '<br>')}</p>
+            `;
+
+            // Tambahkan di urutan paling atas
+            wishesContainer.prepend(newWish);
+            
+            // Fade in animasi
+            setTimeout(() => {
+                newWish.classList.remove('opacity-0');
+            }, 50);
+
+            // Update counter & Reset form
+            wishCount++;
+            wishCountSpan.textContent = wishCount;
+            rsvpForm.reset();
+            
+            // Notifikasi sukses ringan (Opsional)
+            const btn = rsvpForm.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Terkirim';
+            btn.classList.add('bg-green-500', 'text-white');
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.remove('bg-green-500', 'text-white');
+            }, 3000);
+        });
+
+        // Simple HTML Escaper untuk keamanan dari XSS jika user iseng
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag])
+            );
+        }
+    </script>
+</body>
+</html>
